@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import CountryList from './components/CountryList';
 import Header from './components/Header';
 import Search from './components/Search';
+import InfoBox from './components/InfoBox';
 
 const searchCategories = ['name', 'language', 'currency'];
 
@@ -29,6 +30,7 @@ function App() {
 				searchCategories={searchCategories}
 			/>
 			<CountryList />
+			<InfoBox/>
 		</div>
 	);
 }
