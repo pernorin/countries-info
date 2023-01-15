@@ -1,9 +1,16 @@
 import React from 'react';
+import InfoBox from './InfoBox';
 
 
 //Den första sidan när vi öppnar appen. List av land.
 function CountryList() {
-	return <div>CountryList</div>;
+	return (
+		<div>
+			CountryList
+			{/** Här skaffar vi listan */}
+
+		</div>
+	);
 }
 
 export default CountryList;
