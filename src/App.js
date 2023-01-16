@@ -31,9 +31,13 @@ function App() {
           setCountriesFilter={setCountriesFilter}
           searchCategories={searchCategories}
         />
-        <CountryList />
-      </div>
-      {selectedItem && (<InfoBox {...selectedItem}/>)}
+        <CountryList 
+			categoriesFilter={categoriesFilter} 
+			countriesFilter={countriesFilter}
+      setSelectedItem={setSelectedItem}
+		/>
+      	{selectedItem && (<InfoBox {...selectedItem}/>)}
+	  </div>
     </>
   );
 }
