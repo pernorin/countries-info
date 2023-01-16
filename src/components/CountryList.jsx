@@ -9,6 +9,7 @@ function CountryList() {
 			CountryList
 			{/** Här skaffar vi listan */}
 
+			<InfoBox/>
 		</div>
 	);
 }
