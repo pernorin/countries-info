@@ -41,6 +41,9 @@ import Search from "./Search";
 //   );
 // };
 
+function CountryList() {
+const [countryData, setCountryData] = useState(null);
+
 const apiKey ='mSmVIwoIy81W4T8fj3bY50K7gKlfLc9p4xnVmN0v'
 
 const CountryList = ( {countriesFilter, categoriesFilter, setSelectedItem} ) => {
@@ -59,11 +62,11 @@ const CountryList = ( {countriesFilter, categoriesFilter, setSelectedItem} ) => 
     console.log("Effect is running.");
     fetch(`https://countryapi.io/api/all?apikey=${apiKey}`, requestOptions)
     .then(response => response.text())
-    .then(result => console.log((JSON.parse(result))))
+    .then(result => setCountryData((JSON.parse(result))))
     .catch(error => console.log('error', error));
   },[]);
 
-
+  
   useEffect(()=>{
     console.log("Effect is running.");
     fetch(`https://countryapi.io/api/${categoriesFilter}/${countriesFilter}?apikey=${apiKey}`, requestOptions)
@@ -148,6 +151,11 @@ const CountryList = ( {countriesFilter, categoriesFilter, setSelectedItem} ) => 
 
   return (
     <>
+    <div className="CountryList">
+      <h1>Country Testing</h1>
+      <hr/>
+      <div>{JSON.stringify(countryData)}</div>
+    </div>
       {/* <div>Name : {data.countryName}</div>
       <div>Language : {data.languages}</div>
       <div>Currency: {data.currencies}</div>
@@ -198,4 +206,5 @@ const CountryList = ( {countriesFilter, categoriesFilter, setSelectedItem} ) => 
     </>
   );
 };
+}
 export default CountryList;
