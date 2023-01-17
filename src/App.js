@@ -22,6 +22,10 @@ function App() {
 	}, [categoriesFilter]);
 	*/
 
+  useEffect(()=>{
+    console.log(selectedItem);
+  }, [selectedItem]);
+
   return (
     <>
       <div className="App">

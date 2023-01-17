@@ -71,6 +71,12 @@ const CountryList = ({
 		// }
 	};
 
+  // const onSelect = (event) => {
+  //  console.log("selectedItem");
+  //  console.log( event.target.value);
+  //  setSelectedItem(event.target.value);
+  // }
+
 	return (
 		<div>
 			country list
@@ -86,7 +92,9 @@ const CountryList = ({
 			<ul>
 				{allCountries?.map((country) => {
 					return (
-						<li key={country.alpha2Code}>
+						<li 
+              onClick={()=>setSelectedItem(country)} 
+              key={country.alpha2Code}>
 							{country.name} -{' '}
 							<img src={country.flag.small} alt={`flag of ${country.name}`} />
 						</li>

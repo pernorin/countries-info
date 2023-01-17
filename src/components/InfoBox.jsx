@@ -2,18 +2,21 @@ import React from 'react';
 
 // Sök -> filter -> resultat 
 // Resultatet visas i Infobox
-function InfoBox({allCountries, country})  {
+function InfoBox(selectedItem)  {
+	
+	console.log(selectedItem);
+
 	return (
 	<div>
-		
-		<h2>{country.name}</h2>
+
+		<h2>{selectedItem.name}</h2>
 		<table>
 			{
 				<>
-				<tr><td>{country.capital}</td></tr>
-				<tr><td>{country.population}</td></tr>
-				<tr><td>{country.area}</td></tr>
-				<tr><td>{country.flag.small}</td></tr>
+				<tr><td>{selectedItem.capital}</td></tr>
+				<tr><td>{selectedItem.population}</td></tr>
+				<tr><td>{selectedItem.area}</td></tr>
+				<tr><td>{selectedItem.flag.small}</td></tr>
 				</>
 			}
 		</table>
