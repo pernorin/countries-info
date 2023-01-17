@@ -1,201 +1,99 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
-import InfoBox from "./InfoBox";
-import SearchButton from "./SearchButton";
-import Search from "./Search";
-//import data from "../../countryapi-ALL.json";
+const apiKey = 'mSmVIwoIy81W4T8fj3bY50K7gKlfLc9p4xnVmN0v';
 
-//Den första sidan när vi öppnar appen. List av land.
-// function CountryList() {
-// 	return (
-// 		<div>
-// 			CountryList
-// 			{/** Här skaffar vi listan */}
-//
-// 			<InfoBox/>
-// 		</div>
-// 	);
-// }
+const CountryList = ({
+	countriesFilter,
+	categoriesFilter,
+	setSelectedItem,
+}) => {
+	const [allCountries, setAllCountries] = useState(null);
+	const executedRef = useRef(false);
 
-// const countryList = () => {
-//   return (
-//     <>
-//       <div>
-//         <div>Name : {data.countryName}</div>
-//         <div>Language : {data.languages}</div>
-//         <div>Currency: {data.currencies}</div>
-//         <div>
-//           <label>Country :</label>
-//           <select>
-//             {data.country.map((country) => {
-//               return (
-//                 <option key={country.id} value={country.id}>
-//                   {country.name}
-//                 </option>
-//               );
-//             })}
-//           </select>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-const apiKey ='mSmVIwoIy81W4T8fj3bY50K7gKlfLc9p4xnVmN0v'
-
-const CountryList = ( {countriesFilter, categoriesFilter, setSelectedItem} ) => {
-
-  const requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-
-  /* 
+	/* 
     sök:
     https://countryapi.io/api/${categoriesFilter}/${countriesFilter}?apikey=${apiKey}
   */
 
-  useEffect(()=>{
-    console.log("Effect is running.");
-    fetch(`https://countryapi.io/api/all?apikey=${apiKey}`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log((JSON.parse(result))))
-    .catch(error => console.log('error', error));
-  },[]);
+	function getCountries() {
+		const c = fetch(`https://countryapi.io/api/all?apikey=${apiKey}`)
+			.then((response) => response.json())
+			.catch((error) => console.log('error: ', error));
 
+		return c;
+	}
 
-  useEffect(()=>{
-    console.log("Effect is running.");
-    fetch(`https://countryapi.io/api/${categoriesFilter}/${countriesFilter}?apikey=${apiKey}`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log((JSON.parse(result))))
-    .catch(error => console.log('error', error));
-  },[categoriesFilter, countriesFilter]);
+	useEffect(() => {
+		if (executedRef.current) {
+			return;
+		}
+		console.log('Effect is running.');
 
+		(async () => {
+			const countries = await getCountries();
+			// setAllCountries(countries);
+			//setAllCountries(Object.entries(countries));
+			setAllCountries(Object.values(countries));
+		})();
 
-  // try {
-  //   const res = await fetch(`../countryapi-ALL.json`);
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
 
-  //   if (!res.ok) throw new Error("Something went wrong!");
+		/*
+		fetch(`https://countryapi.io/api/all?apikey=${apiKey}`)
+			.then((response) => response.json())
+			.then((result) => setAllCountries(result)) //setAllCountries(Object.values(result))
+			.catch((error) => console.log('error: ', error));
+*/
+		executedRef.current = true;
+	}, []);
 
-  //   const data = await res.json();
+	////////////////////////////////////////////////////////////////////
+	// useEffect(() => {
+	// 	console.log('Effect is running.');
+	// 	fetch(
+	// 		`https://countryapi.io/api/${categoriesFilter}/${countriesFilter}?apikey=${apiKey}`
+	// 	)
+	// 		.then((response) => response.text())
+	// 		.then((result) => console.log(JSON.parse(result)))
+	// 		.catch((error) => console.log('error', error));
+	// }, [categoriesFilter, countriesFilter]);
+	//////////////////////////////////////////////////////////////////7
 
-  //   console.log(data);
+	//const testClick = () => console.log(typeof allCountries);
 
-  //   // setCountries(data);
+	const testClick = () => {
+		/* const countryArr = Object.values(allCountries).slice(0, 20);
+		console.log(countryArr);
+		return countryArr; */
+		console.log(allCountries);
+		// for (const [key, value] of Object.entries(allCountries)) {
+		// 	console.log(`${key}: ${value.name}`);
+		// }
+	};
 
-  //   //   setIsLoading(false);
-  // } catch (error) {
-  //   //   setIsLoading(false);
-  //   //   setError(error.message);
-  // }
-
-  const getCountryByName = async (countryName) => {
-    try {
-      const res = await fetch(`../countryapi-ALL.json${countryName}`);
-
-      if (!res.ok) throw new Error("Not found any country!");
-
-      const data = await res.json();
-      // setCountries(data);
-
-      //   setIsLoading(false);
-    } catch (error) {
-      //   setIsLoading(false);
-      //   setError(error.message);
-    }
-  };
-
-  // const getCountryByLanguages = async (languages) => {
-  //   try {
-  //     const res = await fetch(`../countryapi-ALL.json${countryLanguages}`);
-
-  //     if (!res.ok) throw new Error("Failed..........");
-
-  //     const data = await res.json();
-  //     //     setCountries(data);
-  //     //
-  //     //   setIsLoading(false);
-  //   } catch (error) {
-  //     //   setIsLoading(false);
-  //     //   setError(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   CountryList();
-  // }, []);
-
-  // const getCountryByCurrencies = async (currencies) => {
-  //   try {
-  //     const res = await fetch(`../countryapi-ALL.json${countryCurrencies}`);
-
-  //     if (!res.ok) throw new Error("Failed..........");
-
-  //     const data = await res.json();
-  //     // setCountries(data);
-
-  //     //   setIsLoading(false);
-  //   } catch (error) {
-  //     //   setIsLoading(false);
-  //     //   setError(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   CountryList();
-  // }, []);
-
-  return (
-    <>
-      {/* <div>Name : {data.countryName}</div>
-      <div>Language : {data.languages}</div>
-      <div>Currency: {data.currencies}</div>
-      <div>
-        <label>Country :</label>
-        <select>
-          {data.country.map((country) => {
-            return (
-              <option key={country.id} value={country.id}>
-                {country.name}
-              </option>
-            );
-          })}
-        </select>
-      </div> */}
-
-      <div className="all__country__wrapper">
-        <div className="country__top">
-          <div className="search">
-            {/* <SearchButton onSearch={getCountryByName} /> */}
-          </div>
-
-          <div className="filter">
-            {/* <SearchButton onSelect={getCountryByLanguages} /> */}
-          </div>
-        </div>
-
-        <div className="country__bottom">
-          {/* {isLoading && !error && <h4>Loading........</h4>}
-      {error && !isLoading && <h4>{error}</h4>} */}
-
-          {/* {countries?.map((country) => (
-            // <Link to={`/country/${country.name.common}`}>
-            <div className="country__name">
-              <div className="country__names"></div>
-
-              <div className="country__data">
-                <h3>{country.name.common}</h3>
-                <h6> Currency: {format(country.currencies)}</h6>
-                <h6> Language: {country.languages}</h6>
-                <h6> Currency: {country.currencies}</h6>
-              </div>
-            </div>
-            // </Link>
-          ))} */}
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<div>
+			country list
+			<button onClick={testClick}>click me</button>
+			{allCountries ? (
+				<img
+					src={allCountries[0].flag.medium}
+					alt={`flag of ${allCountries[0].name}`}
+				/>
+			) : (
+				''
+			)}
+			<ul>
+				{allCountries?.map((country) => {
+					return (
+						<li key={country.alpha2Code}>
+							{country.name} -{' '}
+							<img src={country.flag.small} alt={`flag of ${country.name}`} />
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+	);
 };
 export default CountryList;
