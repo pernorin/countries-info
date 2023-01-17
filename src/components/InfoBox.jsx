@@ -2,14 +2,17 @@ import React from 'react';
 
 // Sök -> filter -> resultat 
 // Resultatet visas i Infobox
-function InfoBox(selectedItem)  {
+function InfoBox(selectedItem, setSelectedItem)  {
+
+
 	
 	console.log(selectedItem);
 
 	return (
 	<div className='infoBox'>
 
-		<h2 className='infoBox'>{selectedItem.name}</h2>
+		<h2>{selectedItem.name}</h2>
+		{/* <button onClick={setSelectedItem(null)}> stäng </button> */}
 		
 		<table>
 			{

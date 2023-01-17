@@ -30,17 +30,20 @@ function App() {
     <>
       <div className="App">
         <Header />
-        <Search
-          setCategoriesFilter={setCategoriesFilter}
-          setCountriesFilter={setCountriesFilter}
-          searchCategories={searchCategories}
-        />
+        <div className="search-container">
+          <Search
+            setCategoriesFilter={setCategoriesFilter}
+            setCountriesFilter={setCountriesFilter}
+            searchCategories={searchCategories}
+          />
+          {selectedItem && (<InfoBox setSelectedItem={setSelectedItem} {...selectedItem}/>)}
+        </div>
         <CountryList 
 			categoriesFilter={categoriesFilter} 
 			countriesFilter={countriesFilter}
       setSelectedItem={setSelectedItem}
 		/>
-      	{selectedItem && (<InfoBox {...selectedItem}/>)}
+      	
 	  </div>
     </>
   );
