@@ -8,6 +8,7 @@ const CountryList = ({
 	setSelectedItem,
 }) => {
 	const [allCountries, setAllCountries] = useState(null);
+	const [filteredList, setFilteredList] = useState([]);
 	const executedRef = useRef(false);
 
 	/* 
@@ -34,6 +35,7 @@ const CountryList = ({
 			// setAllCountries(countries);
 			//setAllCountries(Object.entries(countries));
 			setAllCountries(Object.values(countries));
+			setFilteredList(Object.values(countries));
 		})();
 
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
@@ -46,6 +48,39 @@ const CountryList = ({
 */
 		executedRef.current = true;
 	}, []);
+
+	useEffect(() => {
+		if (allCountries !== null) {
+			switch (categoriesFilter) {
+				case 'name':
+					//getCountryByName();
+					setFilteredList(
+						allCountries.filter((country) => {
+							return country.name
+								.toLowerCase()
+								.includes(countriesFilter.toLowerCase());
+						})
+					);
+					break;
+				case 'language':
+					//getCountryByLanguage();
+					setFilteredList(
+						allCountries.filter((country) => {
+							return country.name
+								.toLowerCase()
+								.includes(countriesFilter.toLowerCase());
+						})
+					);
+					break;
+				case 'currency':
+					//getCountryByCurrency();
+					break;
+
+				default:
+					break;
+			}
+		}
+	}, [countriesFilter, categoriesFilter]);
 
 	////////////////////////////////////////////////////////////////////
 	// useEffect(() => {
@@ -65,17 +100,25 @@ const CountryList = ({
 		/* const countryArr = Object.values(allCountries).slice(0, 20);
 		console.log(countryArr);
 		return countryArr; */
-		console.log(allCountries);
+
+		const curr = Object.values(allCountries[0].currencies);
+
+		const currencyNameList = curr.map((c) => {
+			return c.name;
+		});
+
+		console.log(allCountries[0]);
+		console.log(allCountries[0].name);
+		console.log(Object.values(allCountries[0].languages));
+		console.log(currencyNameList);
+
+		console.log(filteredList);
+
+		//
 		// for (const [key, value] of Object.entries(allCountries)) {
 		// 	console.log(`${key}: ${value.name}`);
 		// }
 	};
-
-  // const onSelect = (event) => {
-  //  console.log("selectedItem");
-  //  console.log( event.target.value);
-  //  setSelectedItem(event.target.value);
-  // }
 
 	return (
 		<div>
@@ -90,16 +133,16 @@ const CountryList = ({
 				''
 			)}
 			<ul>
-				{allCountries?.map((country) => {
-					return (
-						<li 
-              onClick={()=>setSelectedItem(country)} 
-              key={country.alpha2Code}>
-							{country.name} -{' '}
-							<img src={country.flag.small} alt={`flag of ${country.name}`} />
-						</li>
-					);
-				})}
+				{allCountries
+					? filteredList.map((country) => {
+							return (
+								<li key={country.alpha2Code} onClick={() => setSelectedItem(country)}>
+									{country.name} -{' '}
+									<img src={country.flag.small} alt={`flag of ${country.name}`} />
+								</li>
+							);
+					  })
+					: ''}
 			</ul>
 		</div>
 	);
