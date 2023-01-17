@@ -121,17 +121,15 @@ const CountryList = ({
 	};
 
 	return (
-		<div>
-			country list
+		<div className='countryList'>
+			<h2>country list</h2>
 			<button onClick={testClick}>click me</button>
 			{allCountries ? (
 				<img
 					src={allCountries[0].flag.medium}
 					alt={`flag of ${allCountries[0].name}`}
 				/>
-			) : (
-				''
-			)}
+			) : ('')}
 			<ul>
 				{allCountries
 					? filteredList.map((country) => {
