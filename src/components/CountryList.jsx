@@ -66,14 +66,25 @@ const CountryList = ({
 					//getCountryByLanguage();
 					setFilteredList(
 						allCountries.filter((country) => {
-							return country.name
-								.toLowerCase()
-								.includes(countriesFilter.toLowerCase());
+							return Object.values(country.languages).find((lang) => {
+								return lang.toLowerCase().includes(countriesFilter.toLowerCase());
+							});
 						})
 					);
 					break;
 				case 'currency':
 					//getCountryByCurrency();
+					setFilteredList(
+						allCountries.filter((country) => {
+							return Object.values(country.currencies)
+								.map((c) => {
+									return c.name;
+								})
+								.find((curr) => {
+									return curr.toLowerCase().includes(countriesFilter.toLowerCase());
+								});
+						})
+					);
 					break;
 
 				default:
