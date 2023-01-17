@@ -1,3 +1,26 @@
 .App {
 	text-align: center;
 }
+
+li{
+	list-style: none;
+}
+
+div .infoBox{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: fit-content;
+	background-color: chocolate;
+}
+
+h2 .infoBox{
+	text-align: center;
+}
+
+table{
+	width: max-content;
+	background-color: aqua;
+}
+
+
