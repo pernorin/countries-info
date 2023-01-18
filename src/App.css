@@ -2,42 +2,39 @@
 	text-align: center;
 }
 
-.search-container{
+.search-container {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
 }
 
-li{
+li {
 	list-style: none;
 }
 
-div .countryList{
+div .countryList {
 	display: flex;
 	flex-direction: column;
 }
 
-div .infoBox{
+div .infoBox {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	width: fit-content;
 	border: 1px solid black;
 	border-radius: 16px;
-	
 }
 
-.infoBox h2{
+.infoBox h2 {
 	text-align: center;
 }
 
-table{
+table {
 	width: max-content;
 }
 
-
-
-li{
+li {
 	background-color: #ddd;
 	border: none;
 	color: black;
@@ -48,4 +45,35 @@ li{
 	margin: 4px 2px;
 	cursor: pointer;
 	border-radius: 16px;
-  }
+}
+
+.search-button-label {
+	display: inline-block;
+	background-color: DodgerBlue;
+	color: wheat;
+	padding: 0.5rem;
+	cursor: pointer;
+	border: 1px solid black;
+	width: 120px;
+	margin: 8px;
+	border-radius: 16px;
+	font-weight: 600;
+}
+
+.search-button {
+	opacity: 0;
+	position: fixed;
+	width: 0;
+}
+.search-button:checked + label {
+	color: black;
+}
+.search-button:hover + label {
+	background-color: hsl(210, 100%, 46%);
+	transition: 0.2s ease-in;
+}
+input {
+	border: 2px solid black;
+	padding: 0.5rem;
+	border-radius: 16px;
+}

@@ -8,8 +8,8 @@ function Search({ setCountriesFilter, setCategoriesFilter, searchCategories }) {
 
 	return (
 		<div>
-			<input type='text' onChange={searchChangeHandler} />
-			<span>Search Country by:</span>
+			<input type='text' onChange={searchChangeHandler} placeholder='Search...' />
+			<p>Search Country by:</p>
 			{searchCategories.map((searchCategory, i) => {
 				return (
 					<SearchButton
